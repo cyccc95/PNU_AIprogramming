@@ -26,14 +26,42 @@
 + More about Strings
 
 ### Ch04 Functions
++ Function Definition
++ Scope of Variables
++ More Examples
++ Library Modules
++ List Comprehension
++ Default Argument Values
++ Keyword Arguments
++ Lambda Expression
++ Top-Down Design
 
 ### Ch05 Data Processing File Access
++ Reading Text Files
++ Creating Text Files
++ Adding Lines to an Existing Text File
++ Altering Items in a Text File
++ Sets
++ CSV Files
++ Dictionary
 
 ### Ch06 Miscellaneous Topics
++ Exception Handling
++ Selecting Random Values
++ Swapping
++ Shortcuts
++ Recursion
 
 ### Ch07 Object-Oriented Programming
++ Classes and Objects
++ Inheritance
 
 ### Ch08 NumPy Matplotlib
++ Installation
++ NumPy
++ Matplotlib
 
 ### Ch09 Search Algorithms : Object-Oriented Implementation
-
++ Conventional vs. AI Algorithms
++ Local Search Algorithms
++ Genetic Algorithm
