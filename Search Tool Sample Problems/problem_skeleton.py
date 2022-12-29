@@ -127,3 +127,101 @@ class Numeric(Problem):
     def coordinate(self):
         c = [round(value, 3) for value in self._solution]
         return tuple(c)  # Convert the list to a tuple
+
+class TSP(Problem):
+    def __init__(self):
+        super().__init__()
+        self._numCities = 0
+        self._locations = []
+        self._distanceTable = []
+
+    def setVariables(self):
+        f = open('tsp30.txt', 'r')
+        self._numCities = int(f.readline())
+
+        line = f.readline()
+        while line != '':
+            self._locations.append(eval(line))
+            line = f.readline()
+        f.close()
+
+        self._calcDistanceTable()
+    
+    def calcDistanceTable(self):
+        for i in range(self._numCities):
+            row = []
+            for j in range(self._numCities):
+                dx = self._locations[i][0] - self._locations[j][0]
+                dy = self._locations[i][1] - self._locations[j][1]
+            d = round(math.sqrt(dx**2 + dy**2), 1)
+            row.append(d)
+        self._distanceTable.append(row)
+
+    def randomInit(self):
+        init = list(range(self._numCities))
+        random.shuffle(init)
+
+        return init
+
+    def evaluate(self, current):
+        self._numEval += 1
+        cost = 0
+        for i in range(self._numCities - 1):
+            cost += self._distanceTable[current[i]][current[i + 1]]
+
+        return cost
+
+    def mutants(self, current):
+        neighbors = []
+        triedPairs = []
+        while len(neighbors) < self._numCities:
+            i = random.randint(0, self._numCities - 1)
+            j = random.randint(0, self._numCities - 1)
+            if i == j:
+                continue
+            if i > j:
+                i, j = j, 1
+            if [i, j] in triedPairs:
+                continue
+            else:
+                triedPairs.append([i, j])
+            
+            neighbors.append(self._inversion(current, i, j))
+        
+        return neighbors
+
+    def inversion(current, i, j):
+        curCopy = current[:]
+        while i < j:
+            curCopy[i], curCopy[j] = curCopy[j], curCopy[i]
+            i += 1
+            j -= 1
+
+        return curCopy
+
+    def describeProblem(self):
+        print()
+        print("Number of cities:", self._numCities)
+        print("City locations:")
+        for i in range(self._numCities):
+            print("{0:>12}".format(str(self._locations[i])), end = '')
+            if i % 5 == 4:
+                print()
+
+def displaySetting():
+    print()
+    print("Search algorithm: Steepest-Ascent Hill Climbing")
+
+def displayResult(self):
+    print()
+    print("Best order of visits:")
+    self._tenPerRow(self._solution)       # Print 10 cities per row
+    print("Minimum tour cost: {0:,}".format(round(self._value)))
+    print()
+    print("Total number of evaluations: {0:,}".format(self._numEval))
+
+def tenPerRow(self):
+    for i in range(len(self._solution)):
+        print("{0:>5}".format(self._solution[i]), end='')
+        if i % 10 == 9:
+            print()
